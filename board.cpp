@@ -8,3 +8,13 @@ Board::Board()
         }
     }
 }
+
+void Board::print_board()
+{
+    cout << "------" << endl;
+    for (vector<string> : data) {
+        for (string str: data) {
+            cout <<"A" << endl;
+        }
+    }
+}

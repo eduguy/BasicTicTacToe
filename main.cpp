@@ -1,13 +1,58 @@
 #include <iostream>
-#include "board.h"
-
+#include <utility>
+#include <vector>
 using namespace std;
 
-int main() {
-    cout <<"hello" << endl;
-    Board nb = Board();
+vector<vector<string>> data;
+bool isOver;
 
+void newData()
+{
+    vector<string> temp;
+    temp.push_back("N");
+    temp.push_back("N");
+    temp.push_back("N");
+    data.push_back(temp);
+    data.push_back(temp);
+    data.push_back(temp);
+    // cout << "MOD" << endl;
+}
 
+void printData()
+{
+    cout << "-----" << endl;
+    cout << "|" << data[0][0] << data[0][1] << data[0][2] << "|" << endl;
+    cout << "|" << data[1][0] << data[1][1] << data[1][2] << "|" << endl;
+    cout << "|" << data[2][0] << data[2][1] << data[2][2] << "|" << endl;
+    cout << "-----" << endl;
+}
+
+void getInput()
+{
+    int x;
+    int y;
+    cout << "What coordinate is your next move?" << endl;
+    cout <<"X"<<endl;
+    cin >> x;
+    cout<<"y"<<endl;
+    cin >> y;
+
+    data[x][y] = "X";
+    
+}
+
+int main()
+{
+    cout << "Hello" << endl;
+
+    while (!isOver)
+    {
+        newData();
+        printData();
+        getInput();
+    }
+
+    return 0;
 }
 
 // # Loop through turns until the game is over

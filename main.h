@@ -10,5 +10,6 @@ class Main
     public:
     // void print_board(Board b);    
 
+    // void newBoard();
     private:
 };

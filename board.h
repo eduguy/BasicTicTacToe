@@ -9,7 +9,8 @@ class Board
     public:
     //create a new board
     Board(); 
-
+    void print_board();
+    
     private:
     //board will be 3x3
     vector<vector<string>> data;
