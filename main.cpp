@@ -5,7 +5,7 @@ using namespace std;
 
 vector<vector<string>> data;
 bool isOver;
-
+bool isXTurn;
 void newData()
 {
     vector<string> temp;
@@ -32,24 +32,100 @@ void getInput()
     int x;
     int y;
     cout << "What coordinate is your next move?" << endl;
-    cout <<"X"<<endl;
+    cout << "X" << endl;
     cin >> x;
-    cout<<"y"<<endl;
+    cout << "y" << endl;
     cin >> y;
 
-    data[x][y] = "X";
-    
+    if (data[y][x] == "N")
+    {
+        if (isXTurn)
+        {
+            data[y][x] = "X";
+        }
+        else
+        {
+            data[y][x] = "O";
+        }
+        isXTurn = !isXTurn;
+    }
+    else
+    {
+        cout << "Space already full, try again" << endl;
+        getInput();
+    }
 }
 
+//data[Y VALUE][X VALUE]
+
+void checkIsWinner()
+{
+    //check rows
+    for (int i = 0; i < 3; i++)
+    {
+        if (data[i][0] == "X" && data[i][1] == "X" && data[i][2] == "X" || data[i][0] == "O" && data[i][1] == "O" && data[i][2] == "O")
+        {
+            isOver = true;
+            cout << "YOU WINN" << endl;
+            return;
+        }
+    }
+
+    //check columns
+    for (int i = 0; i < 3; i++)
+    {
+        if (data[0][i] == "X" && data[1][i] == "X" && data[2][i] == "X" || data[0][i] == "O" && data[1][i] == "O" && data[2][i] == "O")
+        {
+            isOver = true;
+            cout << "YOU WIN" << endl;
+            return;
+        }
+    }
+
+    //check diagnals
+
+    if (data[0][0] == "X" && data[1][1] == "X" && data[2][2] == "X" || data[0][0] == "Y" && data[1][1] == "Y" && data[2][2] == "Y")
+    {
+        isOver = true;
+        cout << "YOU WIN" << endl;
+        return;
+    }
+    if (data[0][2] == "X" && data[1][1] == "X" && data[0][2] == "X" || data[0][2] == "Y" && data[1][1] == "Y" && data[0][2] == "Y")
+    {
+        isOver = true;
+        cout << "YOU WIN" << endl;
+        return;
+    }
+}
+
+void checkIsBoardFull()
+{
+    for (vector<string> vec : data)
+    {
+        for (string str : vec)
+        {
+            if (str == "N")
+            {
+                return;
+            }
+        }
+    }
+
+    isOver = true;
+}
 int main()
 {
     cout << "Hello" << endl;
+    isXTurn = true;
+    newData();
 
     while (!isOver)
     {
-        newData();
         printData();
         getInput();
+        printData();
+        checkIsBoardFull();
+        checkIsWinner();
     }
 
     return 0;
