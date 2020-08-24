@@ -6,6 +6,8 @@ using namespace std;
 vector<vector<string>> data;
 bool isOver;
 bool isXTurn;
+int input;
+
 void newData()
 {
     vector<string> temp;
@@ -52,6 +54,8 @@ void getInput()
     else
     {
         cout << "Space already full, try again" << endl;
+        printData();
+
         getInput();
     }
 }
@@ -113,53 +117,61 @@ void checkIsBoardFull()
 
     isOver = true;
 }
+
+void getAIInput()
+{
+    int x = rand() % 2;
+    int y = rand() % 2;
+
+    if (data[y][x] == "N")
+    {
+        if (isXTurn)
+        {
+            data[y][x] = "X";
+        }
+        else
+        {
+            data[y][x] = "O";
+        }
+        isXTurn = !isXTurn;
+        cout << "AI makes it's move at (" << x << "," << y << ")" << endl;
+    }
+    else
+    {
+        getAIInput();
+    }
+}
 int main()
 {
-    cout << "Hello" << endl;
+    cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player and 2 for 2 player!" << endl;
     isXTurn = true;
     newData();
-
-    while (!isOver)
+    cin >> input;
+    if (input == 2) //will use this to switch between single and multiplayer mode
     {
-        printData();
-        getInput();
-        printData();
-        checkIsBoardFull();
-        checkIsWinner();
+        cout << "Welcome to the 2 player version. X goes first. You can begin!";
+        while (!isOver)
+        {
+            printData();
+            getInput();
+            checkIsBoardFull();
+            checkIsWinner();
+        }
     }
-
+    else
+    {
+        cout << "Welcome to the 1 player version against AI. You go first as X. You can begin!" << endl;
+        while (!isOver)
+        {
+            printData();
+            getInput();
+            checkIsWinner();
+            checkIsBoardFull();
+            getAIInput();
+            checkIsWinner();
+            checkIsBoardFull();
+        }
+    }
     return 0;
+    exit(0);
 }
-
-// # Loop through turns until the game is over
-// loop forever:
-//   # TODO: hmm I'm not sure how best to do this
-//   # right now. No problem, I'll come back later.
-//   current_player = ???
-
-//   # Print the current state of the board
-//   render(board)
-
-//   # Get the move that the current player is going
-//   # to make.
-//   move_co_ords = get_move()
-
-//   # Make the move that we calculated above
-//   make_move(board, move_co_ords, current_player)
-
-//   # Work out if there's a winner
-//   winner = get_winner(board)
-
-//   # If there is a winner, crown them the champion
-//   # and exit the loop.
-//   if winner is not None:
-//     print "WINNER IS %s!!" % winner
-//     break
-
-//   # If there is no winner and the board is full,
-//   # exit the loop.
-//   if is_board_full(board):
-//     print "IT'S A DRAW!!"
-//     break
-
-//   # Repeat until the game is over
