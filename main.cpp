@@ -88,13 +88,13 @@ void checkIsWinner()
 
     //check diagnals
 
-    if (data[0][0] == "X" && data[1][1] == "X" && data[2][2] == "X" || data[0][0] == "Y" && data[1][1] == "Y" && data[2][2] == "Y")
+    if (data[0][0] == "X" && data[1][1] == "X" && data[2][2] == "X" || data[0][0] == "O" && data[1][1] == "O" && data[2][2] == "O")
     {
         isOver = true;
         cout << "YOU WIN" << endl;
         return;
     }
-    if (data[0][2] == "X" && data[1][1] == "X" && data[0][2] == "X" || data[0][2] == "Y" && data[1][1] == "Y" && data[0][2] == "Y")
+    if (data[0][2] == "X" && data[1][1] == "X" && data[0][2] == "X" || data[0][2] == "O" && data[1][1] == "O" && data[0][2] == "O")
     {
         isOver = true;
         cout << "YOU WIN" << endl;
@@ -118,10 +118,10 @@ void checkIsBoardFull()
     isOver = true;
 }
 
-void getAIInput()
+void getRandomInput()
 {
-    int x = rand() % 2;
-    int y = rand() % 2;
+    int x = rand() % 3;
+    int y = rand() % 3;
 
     if (data[y][x] == "N")
     {
@@ -138,7 +138,7 @@ void getAIInput()
     }
     else
     {
-        getAIInput();
+        getRandomInput();
     }
 }
 int main()
@@ -149,7 +149,7 @@ int main()
     cin >> input;
     if (input == 2) //will use this to switch between single and multiplayer mode
     {
-        cout << "Welcome to the 2 player version. X goes first. You can begin!";
+        cout << "Welcome to the 2 player version. X goes first. You can begin!" <<endl;
         while (!isOver)
         {
             printData();
@@ -165,9 +165,11 @@ int main()
         {
             printData();
             getInput();
+            cout<<"got your input"<<endl;
             checkIsWinner();
             checkIsBoardFull();
-            getAIInput();
+            getRandomInput();
+            cout<<"got cpu input"<<endl;
             checkIsWinner();
             checkIsBoardFull();
         }
