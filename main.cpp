@@ -60,6 +60,23 @@ void getInput()
     }
 }
 
+void gameOver()
+{
+    isOver = true;
+    if (!isXTurn)
+    {
+        printData();
+
+        cout << "X WINS" << endl;
+    }
+    else
+    {
+        printData();
+
+        cout << "O WINS" << endl;
+    }
+    exit(0);
+}
 //data[Y VALUE][X VALUE]
 
 void checkIsWinner()
@@ -67,38 +84,38 @@ void checkIsWinner()
     //check rows
     for (int i = 0; i < 3; i++)
     {
-        if (data[i][0] == "X" && data[i][1] == "X" && data[i][2] == "X" || data[i][0] == "O" && data[i][1] == "O" && data[i][2] == "O")
+        if ((data[i][0] == "X" && data[i][1] == "X" && data[i][2] == "X") || (data[i][0] == "O" && data[i][1] == "O" && data[i][2] == "O"))
         {
-            isOver = true;
-            cout << "YOU WINN" << endl;
-            return;
+            cout << "ROW" << endl;
+
+            gameOver();
         }
     }
 
     //check columns
     for (int i = 0; i < 3; i++)
     {
-        if (data[0][i] == "X" && data[1][i] == "X" && data[2][i] == "X" || data[0][i] == "O" && data[1][i] == "O" && data[2][i] == "O")
+        if ((data[0][i] == "X" && data[1][i] == "X" && data[2][i] == "X") || (data[0][i] == "O" && data[1][i] == "O" && data[2][i] == "O"))
         {
-            isOver = true;
-            cout << "YOU WIN" << endl;
-            return;
+            cout << "COLUMN" << endl;
+
+            gameOver();
         }
     }
 
     //check diagnals
 
-    if (data[0][0] == "X" && data[1][1] == "X" && data[2][2] == "X" || data[0][0] == "O" && data[1][1] == "O" && data[2][2] == "O")
+    if ((data[0][0] == "X" && data[1][1] == "X" && data[2][2] == "X") || (data[0][0] == "O" && data[1][1] == "O" && data[2][2] == "O"))
     {
-        isOver = true;
-        cout << "YOU WIN" << endl;
-        return;
+        cout << "LTOR" << endl;
+
+        gameOver();
     }
-    if (data[0][2] == "X" && data[1][1] == "X" && data[0][2] == "X" || data[0][2] == "O" && data[1][1] == "O" && data[0][2] == "O")
+    if ((data[0][2] == "X" && data[1][1] == "X" && data[2][0] == "X") || (data[0][2] == "O" && data[1][1] == "O" && data[2][0] == "O"))
     {
-        isOver = true;
-        cout << "YOU WIN" << endl;
-        return;
+        cout << "RTOL" << endl;
+
+        gameOver();
     }
 }
 
@@ -141,6 +158,17 @@ void getRandomInput()
         getRandomInput();
     }
 }
+
+void getPerfectInput()
+{
+    //fill O into all possible positions of the board
+    //getNextPerfectMove(vector with new position)
+}
+
+void getNextPerfectMove(vector<vector<string>> input)
+{
+    //fill X into all possible positions
+}
 int main()
 {
     cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player and 2 for 2 player!" << endl;
@@ -149,7 +177,7 @@ int main()
     cin >> input;
     if (input == 2) //will use this to switch between single and multiplayer mode
     {
-        cout << "Welcome to the 2 player version. X goes first. You can begin!" <<endl;
+        cout << "Welcome to the 2 player version. X goes first. You can begin!" << endl;
         while (!isOver)
         {
             printData();
@@ -165,11 +193,11 @@ int main()
         {
             printData();
             getInput();
-            cout<<"got your input"<<endl;
+            cout << "got your input" << endl;
             checkIsWinner();
             checkIsBoardFull();
             getRandomInput();
-            cout<<"got cpu input"<<endl;
+            cout << "got cpu input" << endl;
             checkIsWinner();
             checkIsBoardFull();
         }
