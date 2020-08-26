@@ -195,14 +195,16 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
                 {
                     if (isOTurn)
                     {
+                        //i want to maximize the score of O
                         temp[i][j] = "O";
                     }
                     else
                     {
+                        //minimize
                         temp[i][j] = "X";
                     }
 
-                    return getPerfectInput(temp, depth++, !isOTurn);
+                    // return getPerfectInput(temp, depth++, !isOTurn);
                 }
             }
         }
