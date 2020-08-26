@@ -159,11 +159,13 @@ void getRandomInput()
     }
 }
 
-bool checkWinnerAI(vector<vector<string>> temp) {
+bool checkWinnerAI(vector<vector<string>> temp)
+{
     return true;
 }
 
-bool checkTieAI(vector<vector<string>> temp) {
+bool checkTieAI(vector<vector<string>> temp)
+{
     return true;
 }
 
@@ -187,6 +189,9 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     }
     else
     {
+        int best = -1000;
+        int worst = 1000;
+        int bestMoveScore = 0;
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -197,17 +202,23 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
                     {
                         //i want to maximize the score of O
                         temp[i][j] = "O";
+                        int maxScore = getPerfectInput(temp, depth++, !isOTurn);
+                        bestMoveScore = max(maxScore, best);
                     }
                     else
                     {
                         //minimize
                         temp[i][j] = "X";
+                        int minScore = getPerfectInput(temp, depth++, !isOTurn);
+                        bestMoveScore = min(minScore, worst);
                     }
 
                     // return getPerfectInput(temp, depth++, !isOTurn);
                 }
             }
         }
+
+        return bestMoveScore;
     }
     //if (checkwinner(temp))
     // {
@@ -222,7 +233,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     // }
 }
 
-vector<int> getMove(vector<vector<string>> temp, bool isOTurn)
+vector<int> getMove()
 {
     int moveX;
     int moveY;
@@ -280,7 +291,7 @@ int main()
             checkIsWinner();
         }
     }
-    else
+    else if (input == 1)
     {
         cout << "Welcome to the 1 player version against AI. You go first as X. You can begin!" << endl;
         while (!isOver)
@@ -296,11 +307,17 @@ int main()
             checkIsBoardFull();
         }
     }
-    // else
-    // {
-        //copyboard
-        //getPerfectInput(newboard)
-    // }
+    else
+    {
+        while (!isOver)
+        {
+            printData();
+            getInput();
+            // checkIsWinner();
+            // checkIsBoardFull();
+            // getMove();
+        }
+    }
     return 0;
     exit(0);
 }
