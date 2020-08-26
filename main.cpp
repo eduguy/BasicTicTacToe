@@ -55,7 +55,6 @@ void getInput()
     {
         cout << "Space already full, try again" << endl;
         printData();
-
         getInput();
     }
 }
@@ -131,7 +130,8 @@ void checkIsBoardFull()
             }
         }
     }
-
+    printData();
+    cout << "The game ends in a tie!" << endl;
     isOver = true;
 }
 
@@ -151,7 +151,7 @@ void getRandomInput()
             data[y][x] = "O";
         }
         isXTurn = !isXTurn;
-        cout << "AI makes it's move at (" << x << "," << y << ")" << endl;
+        cout << "AI makes it's move at (" << x << "," << y << ")." << endl;
     }
     else
     {
@@ -159,16 +159,108 @@ void getRandomInput()
     }
 }
 
-void getPerfectInput()
-{
-    //fill O into all possible positions of the board
-    //getNextPerfectMove(vector with new position)
+bool checkWinnerAI(vector<vector<string>> temp) {
+    return true;
 }
 
-void getNextPerfectMove(vector<vector<string>> input)
-{
-    //fill X into all possible positions
+bool checkTieAI(vector<vector<string>> temp) {
+    return true;
 }
+
+int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
+
+{
+    if (checkWinnerAI(temp))
+    {
+        if (isOTurn)
+        {
+            return -10 - depth;
+        }
+        else
+        {
+            return 10 - depth;
+        }
+    }
+    else if (checkTieAI(temp))
+    {
+        return 0;
+    }
+    else
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (temp[i][j] == "N")
+                {
+                    if (isOTurn)
+                    {
+                        temp[i][j] = "O";
+                    }
+                    else
+                    {
+                        temp[i][j] = "X";
+                    }
+
+                    return getPerfectInput(temp, depth++, !isOTurn);
+                }
+            }
+        }
+    }
+    //if (checkwinner(temp))
+    // {
+    //     return (-10 - depth) or (10-depth) depdning on if O or X won;
+    // }
+    //else if (gameTIe) {
+    //     return 0-depth;
+    // }
+    // else {
+    // vector vec = getMove(temp, isOTurn);
+    // getPerfectInput(vecotrwithrandommove, depth++,~isturn);
+    // }
+}
+
+vector<int> getMove(vector<vector<string>> temp, bool isOTurn)
+{
+    int moveX;
+    int moveY;
+    int bestScoreSoFar = -1000; //arbitrary
+    vector<vector<string>> temp1 = data;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (data[i][j] == "N")
+            {
+                temp1[i][j] = "O";
+                int score = getPerfectInput(temp1, 0, false);
+
+                if (score > bestScoreSoFar)
+                {
+                    bestScoreSoFar = score;
+                    moveX = j;
+                    moveY = i;
+                }
+            }
+        }
+    }
+    isXTurn = !isXTurn;
+    cout << "AI makes it's move at (" << moveX << "," << moveY << ")." << endl;
+    vector<int> ret;
+    ret.push_back(moveX);
+    ret.push_back(moveY);
+    return ret;
+
+    //get all unused spaces
+    // for (unused spaces :board) {
+    //     fill with X/O,
+    //     getperfectmove with all the board options
+    // }}
+
+    //return the temp board that gives the highest score
+    //replace global board with temp board
+}
+
 int main()
 {
     cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player and 2 for 2 player!" << endl;
@@ -193,15 +285,20 @@ int main()
         {
             printData();
             getInput();
-            cout << "got your input" << endl;
+            // cout << "got your input" << endl;
             checkIsWinner();
             checkIsBoardFull();
             getRandomInput();
-            cout << "got cpu input" << endl;
+            // cout << "got cpu input" << endl;
             checkIsWinner();
             checkIsBoardFull();
         }
     }
+    // else
+    // {
+        //copyboard
+        //getPerfectInput(newboard)
+    // }
     return 0;
     exit(0);
 }
