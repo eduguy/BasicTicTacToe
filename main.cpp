@@ -85,7 +85,7 @@ void checkIsWinner()
     {
         if ((data[i][0] == "X" && data[i][1] == "X" && data[i][2] == "X") || (data[i][0] == "O" && data[i][1] == "O" && data[i][2] == "O"))
         {
-            cout << "ROW" << endl;
+            // cout << "ROW" << endl;
 
             gameOver();
         }
@@ -96,7 +96,7 @@ void checkIsWinner()
     {
         if ((data[0][i] == "X" && data[1][i] == "X" && data[2][i] == "X") || (data[0][i] == "O" && data[1][i] == "O" && data[2][i] == "O"))
         {
-            cout << "COLUMN" << endl;
+            // cout << "COLUMN" << endl;
 
             gameOver();
         }
@@ -106,13 +106,13 @@ void checkIsWinner()
 
     if ((data[0][0] == "X" && data[1][1] == "X" && data[2][2] == "X") || (data[0][0] == "O" && data[1][1] == "O" && data[2][2] == "O"))
     {
-        cout << "LTOR" << endl;
+        // cout << "LTOR" << endl;
 
         gameOver();
     }
     if ((data[0][2] == "X" && data[1][1] == "X" && data[2][0] == "X") || (data[0][2] == "O" && data[1][1] == "O" && data[2][0] == "O"))
     {
-        cout << "RTOL" << endl;
+        // cout << "RTOL" << endl;
 
         gameOver();
     }
@@ -252,7 +252,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
                         //i want to maximize the score of O
                         temp[i][j] = "O";
                         int maxScore = getPerfectInput(temp, depth++, false);
-                        temp[i][j] = "N";
+                        temp[i][j] = "N"; //the issue was I wasn't resetting the board after each time I tried a move, so the AI wasn't able to properly get the optimal move
                         bestMoveScore = max(maxScore, bestMoveScore);
                     }
                 }
@@ -271,7 +271,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
                     {
                         temp[i][j] = "X";
                         int minScore = getPerfectInput(temp, depth++, true);
-                        temp[i][j] = "N";
+                        temp[i][j] = "N"; //the issue was I wasn't resetting the board after each time I tried a move, so the AI wasn't able to properly get the optimal move
 
                         bestMoveScore = min(minScore, bestMoveScore);
                     }
@@ -310,7 +310,7 @@ void getMove()
             {
                 temp1[i][j] = "O";
                 int score = getPerfectInput(temp1, 0, false);
-                temp1[i][j] = "N";
+                temp1[i][j] = "N"; //the issue was I wasn't resetting the board after each time I tried a move, so the AI wasn't able to properly get the optimal move
 
                 if (score > bestScoreSoFar)
                 {
@@ -340,7 +340,7 @@ void getMove()
 
 int main()
 {
-    cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player and 2 for 2 player!" << endl;
+    cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player, 2 for 2 player, and any other button to play 1 player against the unbeatable AI!" << endl;
     isXTurn = true;
     newData();
     cin >> input;
