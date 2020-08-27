@@ -197,6 +197,8 @@ bool checkWinnerAI(vector<vector<string>> temp)
 
         return true;
     }
+
+    return false;
 }
 
 bool checkTieAI(vector<vector<string>> temp)
@@ -221,11 +223,11 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     {
         if (isOTurn)
         {
-            return -10 - depth;
+            return -(-10 - depth);
         }
         else
         {
-            return 10 - depth;
+            return -(10 - depth);
         }
     }
     else if (checkTieAI(temp))
@@ -234,36 +236,50 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     }
     else
     {
-        int best = -1000;
-        int worst = 1000;
-        int bestMoveScore = 0;
-        for (int i = 0; i < 3; i++)
+
+        if (isOTurn)
         {
-            for (int j = 0; j < 3; j++)
+            int bestMoveScore = -100;
+
+            for (int i = 0; i < 3; i++)
             {
-                if (temp[i][j] == "N")
+                for (int j = 0; j < 3; j++)
                 {
-                    if (isOTurn)
+                    if (temp[i][j] == "N")
                     {
                         //i want to maximize the score of O
                         temp[i][j] = "O";
-                        int maxScore = getPerfectInput(temp, depth++, !isOTurn);
-                        bestMoveScore = max(maxScore, best);
+                        int maxScore = getPerfectInput(temp, depth++, false);
+                        // temp[i][j] = "N";
+                        bestMoveScore = max(maxScore, bestMoveScore);
                     }
-                    else
-                    {
-                        //minimize
-                        temp[i][j] = "X";
-                        int minScore = getPerfectInput(temp, depth++, !isOTurn);
-                        bestMoveScore = min(minScore, worst);
-                    }
-
-                    // return getPerfectInput(temp, depth++, !isOTurn);
                 }
             }
+            return bestMoveScore;
+        }
+        else
+        {
+            int bestMoveScore = 100;
+            //minimize
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (temp[i][j] == "N")
+                    {
+                        temp[i][j] = "X";
+                        int minScore = getPerfectInput(temp, depth++, true);
+                        // temp[i][j] = "N";
+
+                        bestMoveScore = min(minScore, bestMoveScore);
+                    }
+                }
+            }
+
+            return bestMoveScore;
         }
 
-        return bestMoveScore;
+        // return getPerfectInput(temp, depth++, !isOTurn);
     }
     //if (checkwinner(temp))
     // {
@@ -288,10 +304,11 @@ void getMove()
     {
         for (int j = 0; j < 3; j++)
         {
-            if (data[i][j] == "N")
+            if (temp1[i][j] == "N")
             {
                 temp1[i][j] = "O";
                 int score = getPerfectInput(temp1, 0, false);
+                temp1[i][j] = "N";
 
                 if (score > bestScoreSoFar)
                 {
@@ -351,6 +368,8 @@ int main()
     }
     else
     {
+        cout << "Welcome to the 1 player version against unbeatable AI. You go first as X. You can begin!" << endl;
+
         while (!isOver)
         {
             printData();
@@ -358,6 +377,8 @@ int main()
             checkIsWinner();
             checkIsBoardFull();
             getMove();
+            checkIsWinner();
+            checkIsBoardFull();
         }
     }
     return 0;
