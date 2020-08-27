@@ -166,7 +166,7 @@ bool checkWinnerAI(vector<vector<string>> temp)
     {
         if ((temp[i][0] == "X" && temp[i][1] == "X" && temp[i][2] == "X") || (temp[i][0] == "O" && temp[i][1] == "O" && temp[i][2] == "O"))
         {
-            cout << "ROW" << endl;
+            // cout << "ROW" << endl;
 
             return true;
         }
@@ -177,7 +177,7 @@ bool checkWinnerAI(vector<vector<string>> temp)
     {
         if ((temp[0][i] == "X" && temp[1][i] == "X" && temp[2][i] == "X") || (temp[0][i] == "O" && temp[1][i] == "O" && temp[2][i] == "O"))
         {
-            cout << "COLUMN" << endl;
+            // cout << "COLUMN" << endl;
 
             return true;
         }
@@ -187,13 +187,13 @@ bool checkWinnerAI(vector<vector<string>> temp)
 
     if ((temp[0][0] == "X" && temp[1][1] == "X" && temp[2][2] == "X") || (temp[0][0] == "O" && temp[1][1] == "O" && temp[2][2] == "O"))
     {
-        cout << "LTOR" << endl;
+        // cout << "LTOR" << endl;
 
         return true;
     }
     if ((temp[0][2] == "X" && temp[1][1] == "X" && temp[2][0] == "X") || (temp[0][2] == "O" && temp[1][1] == "O" && temp[2][0] == "O"))
     {
-        cout << "RTOL" << endl;
+        // cout << "RTOL" << endl;
 
         return true;
     }
@@ -221,13 +221,13 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
 {
     if (checkWinnerAI(temp))
     {
-        if (isOTurn)
+        if (!isOTurn)
         {
-            return 1;
+            return 10-depth;
         }
         else
         {
-            return -1;
+            return -10+depth;
         }
     }
     else if (checkTieAI(temp))
@@ -235,9 +235,10 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
         return 0;
     }
     else
+
     {
 
-        cout<<"past if statements"<<endl;
+        // cout<<"past if statements"<<endl;
         if (isOTurn)
         {
             int bestMoveScore = -100;
@@ -322,7 +323,7 @@ void getMove()
         }
     }
 
-    cout << "BSF" << bestScoreSoFar<<endl;
+    // cout << "BSF" << bestScoreSoFar<<endl;
     isXTurn = !isXTurn;
     cout << "AI makes it's move at (" << moveX << "," << moveY << ")." << endl;
     data[moveY][moveX] = "O";
