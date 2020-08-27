@@ -223,11 +223,11 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     {
         if (isOTurn)
         {
-            return -(-10 - depth);
+            return 1;
         }
         else
         {
-            return -(10 - depth);
+            return -1;
         }
     }
     else if (checkTieAI(temp))
@@ -237,6 +237,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     else
     {
 
+        cout<<"past if statements"<<endl;
         if (isOTurn)
         {
             int bestMoveScore = -100;
@@ -250,7 +251,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
                         //i want to maximize the score of O
                         temp[i][j] = "O";
                         int maxScore = getPerfectInput(temp, depth++, false);
-                        // temp[i][j] = "N";
+                        temp[i][j] = "N";
                         bestMoveScore = max(maxScore, bestMoveScore);
                     }
                 }
@@ -269,7 +270,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
                     {
                         temp[i][j] = "X";
                         int minScore = getPerfectInput(temp, depth++, true);
-                        // temp[i][j] = "N";
+                        temp[i][j] = "N";
 
                         bestMoveScore = min(minScore, bestMoveScore);
                     }
@@ -312,6 +313,7 @@ void getMove()
 
                 if (score > bestScoreSoFar)
                 {
+
                     bestScoreSoFar = score;
                     moveX = j;
                     moveY = i;
@@ -319,6 +321,8 @@ void getMove()
             }
         }
     }
+
+    cout << "BSF" << bestScoreSoFar<<endl;
     isXTurn = !isXTurn;
     cout << "AI makes it's move at (" << moveX << "," << moveY << ")." << endl;
     data[moveY][moveX] = "O";
