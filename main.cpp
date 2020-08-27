@@ -161,11 +161,56 @@ void getRandomInput()
 
 bool checkWinnerAI(vector<vector<string>> temp)
 {
-    return true;
+    //check rows
+    for (int i = 0; i < 3; i++)
+    {
+        if ((temp[i][0] == "X" && temp[i][1] == "X" && temp[i][2] == "X") || (temp[i][0] == "O" && temp[i][1] == "O" && temp[i][2] == "O"))
+        {
+            cout << "ROW" << endl;
+
+            return true;
+        }
+    }
+
+    //check columns
+    for (int i = 0; i < 3; i++)
+    {
+        if ((temp[0][i] == "X" && temp[1][i] == "X" && temp[2][i] == "X") || (temp[0][i] == "O" && temp[1][i] == "O" && temp[2][i] == "O"))
+        {
+            cout << "COLUMN" << endl;
+
+            return true;
+        }
+    }
+
+    //check diagnals
+
+    if ((temp[0][0] == "X" && temp[1][1] == "X" && temp[2][2] == "X") || (temp[0][0] == "O" && temp[1][1] == "O" && temp[2][2] == "O"))
+    {
+        cout << "LTOR" << endl;
+
+        return true;
+    }
+    if ((temp[0][2] == "X" && temp[1][1] == "X" && temp[2][0] == "X") || (temp[0][2] == "O" && temp[1][1] == "O" && temp[2][0] == "O"))
+    {
+        cout << "RTOL" << endl;
+
+        return true;
+    }
 }
 
 bool checkTieAI(vector<vector<string>> temp)
 {
+    for (vector<string> vec : temp)
+    {
+        for (string str : vec)
+        {
+            if (str == "N")
+            {
+                return false;
+            }
+        }
+    }
     return true;
 }
 
@@ -233,7 +278,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     // }
 }
 
-vector<int> getMove()
+void getMove()
 {
     int moveX;
     int moveY;
@@ -259,10 +304,7 @@ vector<int> getMove()
     }
     isXTurn = !isXTurn;
     cout << "AI makes it's move at (" << moveX << "," << moveY << ")." << endl;
-    vector<int> ret;
-    ret.push_back(moveX);
-    ret.push_back(moveY);
-    return ret;
+    data[moveY][moveX] = "O";
 
     //get all unused spaces
     // for (unused spaces :board) {
@@ -313,9 +355,9 @@ int main()
         {
             printData();
             getInput();
-            // checkIsWinner();
-            // checkIsBoardFull();
-            // getMove();
+            checkIsWinner();
+            checkIsBoardFull();
+            getMove();
         }
     }
     return 0;
