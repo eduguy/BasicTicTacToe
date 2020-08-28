@@ -22,11 +22,14 @@ void newData()
 
 void printData()
 {
-    cout << "-----" << endl;
-    cout << "|" << data[0][0] << data[0][1] << data[0][2] << "|" << endl;
-    cout << "|" << data[1][0] << data[1][1] << data[1][2] << "|" << endl;
-    cout << "|" << data[2][0] << data[2][1] << data[2][2] << "|" << endl;
-    cout << "-----" << endl;
+    cout << "________" << endl;
+
+    cout << "  0 1 2" << endl;
+    // cout << "-----" << endl;
+    cout << "0|" << data[0][0] << " " << data[0][1] << " " << data[0][2] << "|" << endl;
+    cout << "1|" << data[1][0] << " " << data[1][1] << " " << data[1][2] << "|" << endl;
+    cout << "2|" << data[2][0] << " " << data[2][1] << " " << data[2][2] << "|" << endl;
+    cout << "________" << endl;
 }
 
 void getInput()
@@ -34,12 +37,17 @@ void getInput()
     int x;
     int y;
     cout << "What coordinate is your next move?" << endl;
-    cout << "X" << endl;
+    cout << "Enter in the X Value." << endl;
     cin >> x;
-    cout << "y" << endl;
+    cout << "Enter in the Y value." << endl;
     cin >> y;
 
-    if (data[y][x] == "N")
+    if (x < 0 || x > 2 || y < 0 || y > 2)
+    {
+        cout << "Invalid move, try again." << endl;
+        getInput();
+    }
+    else if (data[y][x] == "N")
     {
         if (isXTurn)
         {
@@ -133,6 +141,8 @@ void checkIsBoardFull()
     printData();
     cout << "The game ends in a tie!" << endl;
     isOver = true;
+    exit(0);
+
 }
 
 void getRandomInput()
@@ -142,14 +152,9 @@ void getRandomInput()
 
     if (data[y][x] == "N")
     {
-        if (isXTurn)
-        {
-            data[y][x] = "X";
-        }
-        else
-        {
-            data[y][x] = "O";
-        }
+
+        data[y][x] = "O";
+
         isXTurn = !isXTurn;
         cout << "AI makes it's move at (" << x << "," << y << ")." << endl;
     }
@@ -223,11 +228,11 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
     {
         if (!isOTurn)
         {
-            return 10-depth;
+            return 10 - depth;
         }
         else
         {
-            return -10+depth;
+            return -10 + depth;
         }
     }
     else if (checkTieAI(temp))
@@ -298,6 +303,7 @@ int getPerfectInput(vector<vector<string>> temp, int depth, bool isOTurn)
 
 void getMove()
 {
+
     int moveX;
     int moveY;
     int bestScoreSoFar = -1000; //arbitrary
@@ -340,7 +346,7 @@ void getMove()
 
 int main()
 {
-    cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player, 2 for 2 player, and any other button to play 1 player against the unbeatable AI!" << endl;
+    cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player against simple AI, 2 for 2 player, and 3 to play 1 player against the unbeatable AI!" << endl;
     isXTurn = true;
     newData();
     cin >> input;
@@ -381,9 +387,12 @@ int main()
             getInput();
             checkIsWinner();
             checkIsBoardFull();
-            getMove();
-            checkIsWinner();
-            checkIsBoardFull();
+            if (!isOver)
+            {
+                getMove();
+                checkIsWinner();
+                checkIsBoardFull();
+            }
         }
     }
     return 0;
