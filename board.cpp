@@ -11,7 +11,7 @@ Board::Board()
     data.push_back(temp);
 }
 
-void Board::print_board()
+void Board::printData()
 {
     cout << "________" << endl;
 
@@ -25,4 +25,8 @@ void Board::print_board()
 
 String Board::returnContents(int y, int x) {
     return data[y][x];
+}
+
+void Board::modify(int y, int x, String input) {
+    data[y][x] = input;
 }

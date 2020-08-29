@@ -3,10 +3,11 @@
 #include <vector>
 using namespace std;
 
-vector<vector<string>> data;
+// vector<vector<string>> data;
 bool isOver;
 bool isXTurn;
 int input;
+Board board;
 
 
 //board class
@@ -49,22 +50,24 @@ void getInput()
         cout << "Invalid move, try again." << endl;
         getInput();
     }
-    else if (data[y][x] == "N")
+    else if (board.returnContents(y,x) == "N")
     {
         if (isXTurn)
         {
-            data[y][x] = "X";
+            // data[y][x] = "X";
+            board.modify(y,x, "X");
         }
         else
         {
-            data[y][x] = "O";
+            // data[y][x] = "O";
+            board.modify(y,x,"O");
         }
         isXTurn = !isXTurn;
     }
     else
     {
         cout << "Space already full, try again" << endl;
-        printData();
+        board.printData();
         getInput();
     }
 }
@@ -74,13 +77,13 @@ void gameOver()
     isOver = true;
     if (!isXTurn)
     {
-        printData();
+        board.printData();
 
         cout << "X WINS" << endl;
     }
     else
     {
-        printData();
+        board.printData();
 
         cout << "O WINS" << endl;
     }
@@ -140,7 +143,7 @@ void checkIsBoardFull()
             }
         }
     }
-    printData();
+    board.printData();
     cout << "The game ends in a tie!" << endl;
     isOver = true;
     exit(0);
@@ -152,10 +155,11 @@ void getRandomInput()
     int x = rand() % 3;
     int y = rand() % 3;
 
-    if (data[y][x] == "N")
+    if (board.returnContents(y,x) == "N") 
     {
 
-        data[y][x] = "O";
+        // data[y][x] = "O";
+        board.modify(y,x, "O");
 
         isXTurn = !isXTurn;
         cout << "AI makes it's move at (" << x << "," << y << ")." << endl;
@@ -351,14 +355,13 @@ int main()
     cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player against simple AI, 2 for 2 player, and 3 to play 1 player against the unbeatable AI!" << endl;
     isXTurn = true;
     // newData();
-    Board board;
     cin >> input;
     if (input == 2) //will use this to switch between single and multiplayer mode
     {
         cout << "Welcome to the 2 player version. X goes first. You can begin!" << endl;
         while (!isOver)
         {
-            printData();
+            board.printData();
             getInput();
             checkIsBoardFull();
             checkIsWinner();
@@ -369,7 +372,7 @@ int main()
         cout << "Welcome to the 1 player version against AI. You go first as X. You can begin!" << endl;
         while (!isOver)
         {
-            printData();
+            board.printData();
             getInput();
             // cout << "got your input" << endl;
             checkIsWinner();
@@ -386,7 +389,7 @@ int main()
 
         while (!isOver)
         {
-            printData();
+            board.printData();
             getInput();
             checkIsWinner();
             checkIsBoardFull();
