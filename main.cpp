@@ -8,30 +8,32 @@ bool isOver;
 bool isXTurn;
 int input;
 
-void newData()
-{
-    vector<string> temp;
-    temp.push_back("N");
-    temp.push_back("N");
-    temp.push_back("N");
-    data.push_back(temp);
-    data.push_back(temp);
-    data.push_back(temp);
-    // cout << "MOD" << endl;
-}
 
-void printData()
-{
-    cout << "________" << endl;
+//board class
+// void newData()
+// {
+//     vector<string> temp;
+//     temp.push_back("N");
+//     temp.push_back("N");
+//     temp.push_back("N");
+//     data.push_back(temp);
+//     data.push_back(temp);
+//     data.push_back(temp);
+//     // cout << "MOD" << endl;
+// }
 
-    cout << "  0 1 2" << endl;
-    // cout << "-----" << endl;
-    cout << "0|" << data[0][0] << " " << data[0][1] << " " << data[0][2] << "|" << endl;
-    cout << "1|" << data[1][0] << " " << data[1][1] << " " << data[1][2] << "|" << endl;
-    cout << "2|" << data[2][0] << " " << data[2][1] << " " << data[2][2] << "|" << endl;
-    cout << "________" << endl;
-}
+// void printData()
+// {
+//     cout << "________" << endl;
 
+//     cout << "  0 1 2" << endl;
+//     // cout << "-----" << endl;
+//     cout << "0|" << data[0][0] << " " << data[0][1] << " " << data[0][2] << "|" << endl;
+//     cout << "1|" << data[1][0] << " " << data[1][1] << " " << data[1][2] << "|" << endl;
+//     cout << "2|" << data[2][0] << " " << data[2][1] << " " << data[2][2] << "|" << endl;
+//     cout << "________" << endl;
+// }
+//
 void getInput()
 {
     int x;
@@ -348,7 +350,8 @@ int main()
 {
     cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player against simple AI, 2 for 2 player, and 3 to play 1 player against the unbeatable AI!" << endl;
     isXTurn = true;
-    newData();
+    // newData();
+    Board board;
     cin >> input;
     if (input == 2) //will use this to switch between single and multiplayer mode
     {

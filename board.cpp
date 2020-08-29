@@ -2,19 +2,27 @@
 
 Board::Board()
 {
-    for (int i = 0; i<3; i++) {
-        for (int j=0; j<3; j++) {
-            data[i][j] = "N";
-        }
-    }
+    vector<string> temp;
+    temp.push_back("N");
+    temp.push_back("N");
+    temp.push_back("N");
+    data.push_back(temp);
+    data.push_back(temp);
+    data.push_back(temp);
 }
 
 void Board::print_board()
 {
-    cout << "------" << endl;
-    for (vector<string> : data) {
-        for (string str: data) {
-            cout <<"A" << endl;
-        }
-    }
+    cout << "________" << endl;
+
+    cout << "  0 1 2" << endl;
+    // cout << "-----" << endl;
+    cout << "0|" << data[0][0] << " " << data[0][1] << " " << data[0][2] << "|" << endl;
+    cout << "1|" << data[1][0] << " " << data[1][1] << " " << data[1][2] << "|" << endl;
+    cout << "2|" << data[2][0] << " " << data[2][1] << " " << data[2][2] << "|" << endl;
+    cout << "________" << endl;
+}
+
+String Board::returnContents(int y, int x) {
+    return data[y][x];
 }
