@@ -10,8 +10,9 @@ class Board
     //create a new board
     Board(); 
     void printData();
-    String returnContents(int y, int x);
-    void modify(int y, int x, String input);
+    string returnContents(int y, int x);
+    void modify(int y, int x, string input);
+
     private:
     //board will be 3x3
     vector<vector<string>> board;

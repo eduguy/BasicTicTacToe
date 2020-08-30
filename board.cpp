@@ -6,9 +6,9 @@ Board::Board()
     temp.push_back("N");
     temp.push_back("N");
     temp.push_back("N");
-    data.push_back(temp);
-    data.push_back(temp);
-    data.push_back(temp);
+    board.push_back(temp);
+    board.push_back(temp);
+    board.push_back(temp);
 }
 
 void Board::printData()
@@ -17,16 +17,16 @@ void Board::printData()
 
     cout << "  0 1 2" << endl;
     // cout << "-----" << endl;
-    cout << "0|" << data[0][0] << " " << data[0][1] << " " << data[0][2] << "|" << endl;
-    cout << "1|" << data[1][0] << " " << data[1][1] << " " << data[1][2] << "|" << endl;
-    cout << "2|" << data[2][0] << " " << data[2][1] << " " << data[2][2] << "|" << endl;
+    cout << "0|" << board[0][0] << " " << board[0][1] << " " << board[0][2] << "|" << endl;
+    cout << "1|" << board[1][0] << " " << board[1][1] << " " << board[1][2] << "|" << endl;
+    cout << "2|" << board[2][0] << " " << board[2][1] << " " << board[2][2] << "|" << endl;
     cout << "________" << endl;
 }
 
-String Board::returnContents(int y, int x) {
-    return data[y][x];
+string Board::returnContents(int y, int x) {
+    return board[y][x];
 }
 
-void Board::modify(int y, int x, String input) {
-    data[y][x] = input;
+void Board::modify(int y, int x, string input) {
+    board[y][x] = input;
 }
