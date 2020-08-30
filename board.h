@@ -12,6 +12,8 @@ class Board
     void printData();
     string returnContents(int y, int x);
     void modify(int y, int x, string input);
+    bool checkIsWinner();
+    bool checkIsBoardFull();
 
     private:
     //board will be 3x3
