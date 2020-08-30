@@ -92,6 +92,24 @@ void gameOver()
     exit(0);
 }
 
+void checkForWinner()
+{
+    if (board.checkIsWinner())
+    {
+        gameOver();
+    }
+}
+
+void checkForTie()
+{
+    if (board.checkIsBoardFull())
+    {
+        board.printData();
+        cout << "The game ends in a tie!" << endl;
+        isOver = true;
+    }
+}
+
 //should stay here
 void getRandomInput()
 {
@@ -101,7 +119,6 @@ void getRandomInput()
     if (board.returnContents(y, x) == "N")
     {
 
-        // data[y][x] = "O";
         board.modify(y, x, "O");
 
         isXTurn = !isXTurn;
@@ -112,63 +129,6 @@ void getRandomInput()
         getRandomInput();
     }
 }
-
-// bool checkWinnerAI(vector<vector<string>> temp)
-// {
-//     //check rows
-//     for (int i = 0; i < 3; i++)
-//     {
-//         if ((temp[i][0] == "X" && temp[i][1] == "X" && temp[i][2] == "X") || (temp[i][0] == "O" && temp[i][1] == "O" && temp[i][2] == "O"))
-//         {
-//             // cout << "ROW" << endl;
-
-//             return true;
-//         }
-//     }
-
-//     //check columns
-//     for (int i = 0; i < 3; i++)
-//     {
-//         if ((temp[0][i] == "X" && temp[1][i] == "X" && temp[2][i] == "X") || (temp[0][i] == "O" && temp[1][i] == "O" && temp[2][i] == "O"))
-//         {
-//             // cout << "COLUMN" << endl;
-
-//             return true;
-//         }
-//     }
-
-//     //check diagnals
-
-//     if ((temp[0][0] == "X" && temp[1][1] == "X" && temp[2][2] == "X") || (temp[0][0] == "O" && temp[1][1] == "O" && temp[2][2] == "O"))
-//     {
-//         // cout << "LTOR" << endl;
-
-//         return true;
-//     }
-//     if ((temp[0][2] == "X" && temp[1][1] == "X" && temp[2][0] == "X") || (temp[0][2] == "O" && temp[1][1] == "O" && temp[2][0] == "O"))
-//     {
-//         // cout << "RTOL" << endl;
-
-//         return true;
-//     }
-
-//     return false;
-// }
-
-// bool checkTieAI(vector<vector<string>> temp)
-// {
-//     for (vector<string> vec : temp)
-//     {
-//         for (string str : vec)
-//         {
-//             if (str == "N")
-//             {
-//                 return false;
-//             }
-//         }
-//     }
-//     return true;
-// }
 
 //stay here
 int getPerfectInput(Board temp, int depth, bool isOTurn)
@@ -309,8 +269,8 @@ int main()
         {
             board.printData();
             getInput();
-            board.checkIsBoardFull();
-            board.checkIsWinner();
+            checkForWinner();
+            checkForTie();
         }
     }
     else if (input == 1)
@@ -320,13 +280,11 @@ int main()
         {
             board.printData();
             getInput();
-            // cout << "got your input" << endl;
-            board.checkIsWinner();
-            board.checkIsBoardFull();
+            checkForWinner();
+            checkForTie();
             getRandomInput();
-            // cout << "got cpu input" << endl;
-            board.checkIsWinner();
-            board.checkIsBoardFull();
+            checkForWinner();
+            checkForTie();
         }
     }
     else
@@ -337,13 +295,13 @@ int main()
         {
             board.printData();
             getInput();
-            board.checkIsWinner();
-            board.checkIsBoardFull();
+            checkForWinner();
+            checkForTie();
             if (!isOver)
             {
                 getMove();
-                board.checkIsWinner();
-                board.checkIsBoardFull();
+                checkForWinner();
+                checkForTie();
             }
         }
     }

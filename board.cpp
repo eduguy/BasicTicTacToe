@@ -97,10 +97,7 @@ bool Board::checkIsBoardFull()
         }
     }
     
-    // printData();
-    // cout << "The game ends in a tie!" << endl;
-    // isOver = true;
-    // exit(0);
+
     return true;
 
 }
