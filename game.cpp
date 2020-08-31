@@ -1,44 +1,18 @@
-#include <iostream>
-#include <utility>
-#include <vector>
-#include "main.h"
-using namespace std;
+#include "game.h"
 
-// vector<vector<string>> data;
-bool isOver;
-bool isXTurn;
-int input;
-Board board;
+Game::Game() {
+    isOver = false;
+    isXTurn = true;
+}
 
-//board class
-// void newData()
-// {
-//     vector<string> temp;
-//     temp.push_back("N");
-//     temp.push_back("N");
-//     temp.push_back("N");
-//     data.push_back(temp);
-//     data.push_back(temp);
-//     data.push_back(temp);
-//     // cout << "MOD" << endl;
-// }
+void Game::printData(){
+    board.printData();
+}
 
-// void printData()
-// {
-//     cout << "________" << endl;
-
-//     cout << "  0 1 2" << endl;
-//     // cout << "-----" << endl;
-//     cout << "0|" << data[0][0] << " " << data[0][1] << " " << data[0][2] << "|" << endl;
-//     cout << "1|" << data[1][0] << " " << data[1][1] << " " << data[1][2] << "|" << endl;
-//     cout << "2|" << data[2][0] << " " << data[2][1] << " " << data[2][2] << "|" << endl;
-//     cout << "________" << endl;
-// }
-//
-//most of the stuff can be moved to board. can recombine the checkwinner and tie methods and use their return values to modify isover/isxturn, will also limit duplication
-
-//stay here
-void getInput()
+bool Game::checkIsOver(){
+    return isOver;
+}
+void Game::getInput()
 {
     int x;
     int y;
@@ -74,7 +48,7 @@ void getInput()
         getInput();
     }
 }
-void gameOver()
+void Game::gameOver()
 {
     isOver = true;
     if (!isXTurn)
@@ -92,7 +66,7 @@ void gameOver()
     exit(0);
 }
 
-void checkForWinner()
+void Game::checkForWinner()
 {
     if (board.checkIsWinner())
     {
@@ -100,7 +74,7 @@ void checkForWinner()
     }
 }
 
-void checkForTie()
+void Game::checkForTie()
 {
     if (board.checkIsBoardFull())
     {
@@ -111,7 +85,7 @@ void checkForTie()
 }
 
 //should stay here
-void getRandomInput()
+void Game::getRandomInput()
 {
     int x = rand() % 3;
     int y = rand() % 3;
@@ -131,7 +105,7 @@ void getRandomInput()
 }
 
 //stay here
-int getPerfectInput(Board temp, int depth, bool isOTurn)
+int Game::getPerfectInput(Board temp, int depth, bool isOTurn)
 
 {
     if (temp.checkIsWinner())
@@ -212,7 +186,7 @@ int getPerfectInput(Board temp, int depth, bool isOTurn)
 }
 
 //stay here
-void getMove()
+void Game::getMove()
 {
 
     int moveX;
@@ -256,55 +230,4 @@ void getMove()
     //replace global board with temp board
 }
 
-int main()
-{
-    cout << "Hello. Welcome to my tic tac toe game! Press 1 for 1 player against simple AI, 2 for 2 player, and 3 to play 1 player against the unbeatable AI!" << endl;
-    isXTurn = true;
-    // newData();
-    cin >> input;
-    if (input == 2) //will use this to switch between single and multiplayer mode
-    {
-        cout << "Welcome to the 2 player version. X goes first. You can begin!" << endl;
-        while (!isOver)
-        {
-            board.printData();
-            getInput();
-            checkForWinner();
-            checkForTie();
-        }
-    }
-    else if (input == 1)
-    {
-        cout << "Welcome to the 1 player version against AI. You go first as X. You can begin!" << endl;
-        while (!isOver)
-        {
-            board.printData();
-            getInput();
-            checkForWinner();
-            checkForTie();
-            getRandomInput();
-            checkForWinner();
-            checkForTie();
-        }
-    }
-    else
-    {
-        cout << "Welcome to the 1 player version against unbeatable AI. You go first as X. You can begin!" << endl;
 
-        while (!isOver)
-        {
-            board.printData();
-            getInput();
-            checkForWinner();
-            checkForTie();
-            if (!isOver)
-            {
-                getMove();
-                checkForWinner();
-                checkForTie();
-            }
-        }
-    }
-    return 0;
-    exit(0);
-}
