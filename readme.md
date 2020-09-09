@@ -1,8 +1,8 @@
-## BasicTicTacToe
+# BasicTicTacToe
 
 - Basic TicTacToe game to remind myself how to use C++.
 
-![](/Images/game.PNG)
+![](/Images/Game.PNG)
 
 
 
@@ -15,7 +15,7 @@
 - 1 player mode against unbeatable AI
 
 
-#I programmed this game in two parts.
+### I programmed this game in two parts.
 
 - Part 1: A basic, functioning TicTacToe game for two players, or for 1 player. However, the AI is primitive and only makes random moves.
 
