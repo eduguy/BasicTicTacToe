@@ -4,7 +4,9 @@
 
 ![](/Images/GameCopy.png)
 
+## Usage
 
+Run ```make``` in terminal to compile and then ```./output``` to run the program!
 
 ## Features
 
